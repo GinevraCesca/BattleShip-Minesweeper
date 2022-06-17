@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Media;
+using System.IO;
 
 namespace BattleShip_Minesweeper
 {
@@ -15,12 +17,20 @@ namespace BattleShip_Minesweeper
         List<int> mineList = new List<int>(new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
         List<Button> buttons = new List<Button>();
         Random randGen = new Random();
-        int time = 10000;
-        int bombs = 10;
+        int time = 5000;
+        int bombs = 0;
+        int win1 = 0;
+        int win2 = 0;
+
+        SoundPlayer explosion = new SoundPlayer(Properties.Resources.Bomb_2_SoundBible_com_953367492);
+        SoundPlayer applause = new SoundPlayer(Properties.Resources.Audience_Applause_Matthiew11_1206899159);
+        System.Windows.Media.MediaPlayer backgroundMedia = new System.Windows.Media.MediaPlayer();
 
         public Form1()
         {
             InitializeComponent();
+            //backgroundMedia.Open(new Uri(Application.StartupPath + "/Resouces/______"));
+            //backgroundMedia.Play();
             buttons.Add(A1);
             buttons.Add(A2);
             buttons.Add(A3);
@@ -62,6 +72,11 @@ namespace BattleShip_Minesweeper
         {
             Button button = (Button)sender;
             ButtonCheck(button);
+
+            if (mineList[button.TabIndex] < 99)
+            {
+                win1++;
+            }
         }
 
         public void ButtonCheck(Button b)
@@ -70,29 +85,81 @@ namespace BattleShip_Minesweeper
             {
                 b.Text = $"{mineList[b.TabIndex]}";
 
-                if (b.Text == "99" || b.Text == "100" || b.Text == "101" || b.Text == "102" || b.Text == "103")
+                if (b.Text == "99" || b.Text == "100" || b.Text == "101" || b.Text == "102" || b.Text == "103" || b.Text == "104" || b.Text == "105" || b.Text == "106")
                 {
                     b.Text = "";
                     b.BackgroundImage = Properties.Resources.bomb_icon;
                     titleLabel.Text = "You Lost";
+                    explosion.Play();
                     GameOver();
                 }
             }
 
             else if (flagButton.BackColor == Color.Green)
             {
-                if (b.BackgroundImage == Properties.Resources.flag_folded_icon)
+                if (b.BackgroundImage == null)
+                {
+                    b.BackgroundImage = Properties.Resources.flag_folded_icon;
+                    bombs--;
+                    bombsLabel.Text = $"({bombs}) bombs left";
+
+                    for (int i = 0; i < buttons.Count; i++)
+                    {
+                        if (mineList[i] >= 99 && buttons[i].BackgroundImage == Properties.Resources.Flag_2_icon && bombs == 0)
+                        {
+                            win2++;
+                        }
+                    }
+                }
+
+                else
                 {
                     b.BackgroundImage = null;
                     bombs++;
                     bombsLabel.Text = $"({bombs}) bombs left";
                 }
-                else if (b.BackgroundImage == null)
-                {
-                    b.BackgroundImage = Properties.Resources.flag_folded_icon;
-                    bombs--;
-                    bombsLabel.Text = $"({bombs}) bombs left";
-                }
+            }
+
+            if (win1 == 30 && easyButton.BackColor == Color.Green)
+            {
+                titleLabel.Text = "Congratulation. You Won";
+                applause.Play();
+                GameOver();
+            }
+
+            if (win2 == 5 && easyButton.BackColor == Color.Green)
+            {
+                titleLabel.Text = "Congratulation. You Won";
+                applause.Play();
+                GameOver();
+            }
+
+            if (win1 == 25 && mediumButton.BackColor == Color.Green)
+            {
+                titleLabel.Text = "Congratulation. You Won";
+                applause.Play();
+                GameOver();
+            }
+
+            if (win2 == 10 && mediumButton.BackColor == Color.Green)
+            {
+                titleLabel.Text = "Congratulation. You Won";
+                applause.Play();
+                GameOver();
+            }
+
+            if (win1 == 20 && hardButton.BackColor == Color.Green)
+            {
+                titleLabel.Text = "Congratulation. You Won";
+                applause.Play();
+                GameOver();
+            }
+
+            if (win2 == 15 && hardButton.BackColor == Color.Green)
+            {
+                titleLabel.Text = "Congratulation. You Won";
+                applause.Play();
+                GameOver();
             }
         }
 
@@ -105,7 +172,18 @@ namespace BattleShip_Minesweeper
                 buttons[i].Enabled = false;
             }
 
+            for (int i = 0; i < mineList.Count; i++)
+            {
+                if (mineList[i] >= 99)
+                {
+                    buttons[i].BackgroundImage = Properties.Resources.bomb_icon;
+                }
+            }
+
             PlayButton.Text = "PLAY AGAIN";
+            easyButton.Enabled = true;
+            mediumButton.Enabled = true;
+            hardButton.Enabled = true;
         }
 
         private void PlayButton_Click(object sender, EventArgs e)
@@ -113,22 +191,71 @@ namespace BattleShip_Minesweeper
             mineList = new List<int>(new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 });
             PlayButton.Text = "PLAY";
             titleLabel.Text = "MINESWEEPER";
-            bombsLabel.Text = "(10) bombs left";
-            bombs = 10;
+            flagButton.BackColor = Color.Goldenrod;
             gameEngine.Start();
-            time = 10000;
+            applause.Stop();
+            explosion.Stop();
+            win1 = 0;
+            win2 = 0;
 
-            for (int i = 0; i < 10; i++)
+            if (easyButton.BackColor == Color.Green)
             {
-                int randValue = 0;
-                randValue = randGen.Next(0, 35);
+                bombsLabel.Text = "(5) bombs left";
+                time = 6000;
+                bombs = 5;
 
-                while (mineList[randValue] == 99)
+                for (int i = 0; i < 5; i++)
                 {
+                    int randValue = 0;
                     randValue = randGen.Next(0, 35);
-                }
 
-                mineList[randValue] = 99;
+                    while (mineList[randValue] == 99)
+                    {
+                        randValue = randGen.Next(0, 35);
+                    }
+
+                    mineList[randValue] = 99;
+                }
+            }
+
+            if (mediumButton.BackColor == Color.Green)
+            {
+                bombsLabel.Text = "(10) bombs left";
+                time = 5000;
+                bombs = 10;
+
+                for (int i = 0; i < 10; i++)
+                {
+                    int randValue = 0;
+                    randValue = randGen.Next(0, 35);
+
+                    while (mineList[randValue] == 99)
+                    {
+                        randValue = randGen.Next(0, 35);
+                    }
+
+                    mineList[randValue] = 99;
+                }
+            }
+
+            else if (hardButton.BackColor == Color.Green)
+            {
+                bombsLabel.Text = "(15) bombs left";
+                time = 4000;
+                bombs = 15;
+
+                for (int i = 0; i < 15; i++)
+                {
+                    int randValue = 0;
+                    randValue = randGen.Next(0, 35);
+
+                    while (mineList[randValue] == 99)
+                    {
+                        randValue = randGen.Next(0, 35);
+                    }
+
+                    mineList[randValue] = 99;
+                }
             }
 
             for (int i = 0; i < mineList.Count; i++)
@@ -299,7 +426,7 @@ namespace BattleShip_Minesweeper
                 {
                     try
                     {
-                        mineList[i + 1]++;
+                        mineList[i - 1]++;
                     }
                     catch
                     { }
@@ -533,47 +660,14 @@ namespace BattleShip_Minesweeper
 
             for (int i = 0; i < buttons.Count; i++)
             { 
-                buttons[i].Enabled = false;
+                buttons[i].Enabled = true;
                 buttons[i].Text = "";
                 buttons[i].BackgroundImage = null;
             }
-           
-
-            //A1.BackgroundImage = null;
-            //A2.BackgroundImage = null;
-            //A3.BackgroundImage = null;
-            //A4.BackgroundImage = null;
-            //A5.BackgroundImage = null;
-            //A6.BackgroundImage = null;
-            //A7.BackgroundImage = null;
-            //B1.BackgroundImage = null;
-            //B2.BackgroundImage = null;
-            //B3.BackgroundImage = null;
-            //B4.BackgroundImage = null;
-            //B5.BackgroundImage = null;
-            //B6.BackgroundImage = null;
-            //B7.BackgroundImage = null;
-            //C1.BackgroundImage = null;
-            //C2.BackgroundImage = null;
-            //C3.BackgroundImage = null;
-            //C4.BackgroundImage = null;
-            //C5.BackgroundImage = null;
-            //C6.BackgroundImage = null;
-            //C7.BackgroundImage = null;
-            //D1.BackgroundImage = null;
-            //D2.BackgroundImage = null;
-            //D3.BackgroundImage = null;
-            //D4.BackgroundImage = null;
-            //D5.BackgroundImage = null;
-            //D6.BackgroundImage = null;
-            //D7.BackgroundImage = null;
-            //E1.BackgroundImage = null;
-            //E2.BackgroundImage = null;
-            //E3.BackgroundImage = null;
-            //E4.BackgroundImage = null;
-            //E5.BackgroundImage = null;
-            //E6.BackgroundImage = null;
-            //E7.BackgroundImage = null;
+            
+            easyButton.Enabled = false;
+            mediumButton.Enabled = false;
+            hardButton.Enabled = false;
         }
 
         private void flagButton_Click(object sender, EventArgs e)
@@ -595,9 +689,40 @@ namespace BattleShip_Minesweeper
 
             if (time == 0)
             {
-                gameEngine.Stop();
+                titleLabel.Text = "You Lost";
                 GameOver();
             }
+        }
+
+        private void easyButton_Click(object sender, EventArgs e)
+        {
+            easyButton.BackColor = Color.Green;
+            mediumButton.BackColor = Color.Goldenrod;
+            hardButton.BackColor = Color.Goldenrod;
+
+            PlayButton.Enabled = true;
+
+            //var easySound = new System.Windows.Media.MediaPlayer();
+            //easySound.Open(new Uri(Application.StartupPath + "_____");
+            //easySound.Play();
+        }
+
+        private void mediumButton_Click(object sender, EventArgs e)
+        {
+            easyButton.BackColor = Color.Goldenrod;
+            mediumButton.BackColor = Color.Green;
+            hardButton.BackColor = Color.Goldenrod;
+
+            PlayButton.Enabled = true;
+        }
+
+        private void hardButton_Click(object sender, EventArgs e)
+        {
+            easyButton.BackColor = Color.Goldenrod;
+            mediumButton.BackColor = Color.Goldenrod;
+            hardButton.BackColor = Color.Green;
+
+            PlayButton.Enabled = true;
         }
     }
 }

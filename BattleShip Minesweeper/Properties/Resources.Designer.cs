@@ -61,6 +61,24 @@ namespace BattleShip_Minesweeper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream Audience_Applause_Matthiew11_1206899159 {
+            get {
+                return ResourceManager.GetStream("Audience_Applause_Matthiew11_1206899159", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream Bomb_2_SoundBible_com_953367492 {
+            get {
+                return ResourceManager.GetStream("Bomb_2_SoundBible_com_953367492", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap bomb_icon {

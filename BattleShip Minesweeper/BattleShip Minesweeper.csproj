@@ -33,6 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -44,6 +45,7 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Form1.cs">
@@ -88,6 +90,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\bomb icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Bomb 2-SoundBible.com-953367492.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Audience_Applause-Matthiew11-1206899159.wav" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

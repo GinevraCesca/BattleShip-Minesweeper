@@ -67,9 +67,12 @@
             this.PlayButton = new System.Windows.Forms.Button();
             this.bombsLabel = new System.Windows.Forms.Label();
             this.titleLabel = new System.Windows.Forms.Label();
-            this.flagButton = new System.Windows.Forms.Button();
             this.gameEngine = new System.Windows.Forms.Timer(this.components);
             this.timeLabel = new System.Windows.Forms.Label();
+            this.flagButton = new System.Windows.Forms.Button();
+            this.easyButton = new System.Windows.Forms.Button();
+            this.mediumButton = new System.Windows.Forms.Button();
+            this.hardButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // A1
@@ -531,6 +534,7 @@
             // 
             // PlayButton
             // 
+            this.PlayButton.Enabled = false;
             this.PlayButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.PlayButton.Font = new System.Drawing.Font("Kristen ITC", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.PlayButton.Location = new System.Drawing.Point(220, 388);
@@ -548,7 +552,7 @@
             this.bombsLabel.Name = "bombsLabel";
             this.bombsLabel.Size = new System.Drawing.Size(146, 50);
             this.bombsLabel.TabIndex = 37;
-            this.bombsLabel.Text = "(10) bombs left";
+            this.bombsLabel.Text = "(0) bombs left";
             this.bombsLabel.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // titleLabel
@@ -556,10 +560,25 @@
             this.titleLabel.Font = new System.Drawing.Font("Kristen ITC", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.titleLabel.Location = new System.Drawing.Point(12, 9);
             this.titleLabel.Name = "titleLabel";
-            this.titleLabel.Size = new System.Drawing.Size(576, 66);
+            this.titleLabel.Size = new System.Drawing.Size(626, 66);
             this.titleLabel.TabIndex = 38;
             this.titleLabel.Text = "MINESWEEPER";
             this.titleLabel.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            // 
+            // gameEngine
+            // 
+            this.gameEngine.Interval = 20;
+            this.gameEngine.Tick += new System.EventHandler(this.gameEngine_Tick);
+            // 
+            // timeLabel
+            // 
+            this.timeLabel.Font = new System.Drawing.Font("Kristen ITC", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.timeLabel.Location = new System.Drawing.Point(388, 388);
+            this.timeLabel.Name = "timeLabel";
+            this.timeLabel.Size = new System.Drawing.Size(250, 50);
+            this.timeLabel.TabIndex = 40;
+            this.timeLabel.Text = "time left";
+            this.timeLabel.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // flagButton
             // 
@@ -574,27 +593,54 @@
             this.flagButton.UseVisualStyleBackColor = true;
             this.flagButton.Click += new System.EventHandler(this.flagButton_Click);
             // 
-            // gameEngine
+            // easyButton
             // 
-            this.gameEngine.Interval = 20;
-            this.gameEngine.Tick += new System.EventHandler(this.gameEngine_Tick);
+            this.easyButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.easyButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.easyButton.Font = new System.Drawing.Font("Kristen ITC", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.easyButton.Location = new System.Drawing.Point(550, 164);
+            this.easyButton.Name = "easyButton";
+            this.easyButton.Size = new System.Drawing.Size(88, 29);
+            this.easyButton.TabIndex = 41;
+            this.easyButton.Text = "Easy";
+            this.easyButton.UseVisualStyleBackColor = true;
+            this.easyButton.Click += new System.EventHandler(this.easyButton_Click);
             // 
-            // timeLabel
+            // mediumButton
             // 
-            this.timeLabel.Font = new System.Drawing.Font("Kristen ITC", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.timeLabel.Location = new System.Drawing.Point(388, 388);
-            this.timeLabel.Name = "timeLabel";
-            this.timeLabel.Size = new System.Drawing.Size(200, 50);
-            this.timeLabel.TabIndex = 40;
-            this.timeLabel.Text = "time left";
-            this.timeLabel.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.mediumButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.mediumButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.mediumButton.Font = new System.Drawing.Font("Kristen ITC", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.mediumButton.Location = new System.Drawing.Point(550, 210);
+            this.mediumButton.Name = "mediumButton";
+            this.mediumButton.Size = new System.Drawing.Size(88, 29);
+            this.mediumButton.TabIndex = 42;
+            this.mediumButton.Text = "Medium";
+            this.mediumButton.UseVisualStyleBackColor = true;
+            this.mediumButton.Click += new System.EventHandler(this.mediumButton_Click);
+            // 
+            // hardButton
+            // 
+            this.hardButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.hardButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.hardButton.Font = new System.Drawing.Font("Kristen ITC", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.hardButton.Location = new System.Drawing.Point(550, 255);
+            this.hardButton.Name = "hardButton";
+            this.hardButton.Size = new System.Drawing.Size(88, 29);
+            this.hardButton.TabIndex = 43;
+            this.hardButton.Text = "Hard";
+            this.hardButton.UseVisualStyleBackColor = true;
+            this.hardButton.Click += new System.EventHandler(this.hardButton_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Goldenrod;
-            this.ClientSize = new System.Drawing.Size(600, 450);
+            this.ClientSize = new System.Drawing.Size(650, 450);
+            this.Controls.Add(this.hardButton);
+            this.Controls.Add(this.mediumButton);
+            this.Controls.Add(this.easyButton);
             this.Controls.Add(this.timeLabel);
             this.Controls.Add(this.flagButton);
             this.Controls.Add(this.titleLabel);
@@ -686,6 +732,9 @@
         private System.Windows.Forms.Button flagButton;
         private System.Windows.Forms.Timer gameEngine;
         private System.Windows.Forms.Label timeLabel;
+        private System.Windows.Forms.Button easyButton;
+        private System.Windows.Forms.Button mediumButton;
+        private System.Windows.Forms.Button hardButton;
     }
 }
 
