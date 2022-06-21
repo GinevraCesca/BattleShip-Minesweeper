@@ -81,6 +81,7 @@ namespace BattleShip_Minesweeper
 
         public void ButtonCheck(Button b)
         {
+            // show numbers or bombs
             if (flagButton.BackColor == Color.Goldenrod)
             {
                 b.Text = $"{mineList[b.TabIndex]}";
@@ -95,6 +96,7 @@ namespace BattleShip_Minesweeper
                 }
             }
 
+            //show flags
             else if (flagButton.BackColor == Color.Green)
             {
                 if (b.BackgroundImage == null)
@@ -120,6 +122,7 @@ namespace BattleShip_Minesweeper
                 }
             }
 
+            //easy game win statement
             if (win1 == 30 && easyButton.BackColor == Color.Green)
             {
                 titleLabel.Text = "Congratulation. You Won";
@@ -134,6 +137,7 @@ namespace BattleShip_Minesweeper
                 GameOver();
             }
 
+            //medium game win
             if (win1 == 25 && mediumButton.BackColor == Color.Green)
             {
                 titleLabel.Text = "Congratulation. You Won";
@@ -148,6 +152,7 @@ namespace BattleShip_Minesweeper
                 GameOver();
             }
 
+            //hard game win
             if (win1 == 20 && hardButton.BackColor == Color.Green)
             {
                 titleLabel.Text = "Congratulation. You Won";
@@ -198,6 +203,7 @@ namespace BattleShip_Minesweeper
             win1 = 0;
             win2 = 0;
 
+            //win if flags = bombs
             if (easyButton.BackColor == Color.Green)
             {
                 bombsLabel.Text = "(5) bombs left";
@@ -258,6 +264,7 @@ namespace BattleShip_Minesweeper
                 }
             }
 
+            //add numbers to each button
             for (int i = 0; i < mineList.Count; i++)
             {
                 if (i == 0 && mineList[i] >= 99)
@@ -433,14 +440,14 @@ namespace BattleShip_Minesweeper
 
                     try
                     {
-                        mineList[i + 7]++;
+                        mineList[i + 6]++;
                     }
                     catch
                     { }
 
                     try
                     {
-                        mineList[i + 8]++;
+                        mineList[i + 7]++;
                     }
                     catch
                     { }
